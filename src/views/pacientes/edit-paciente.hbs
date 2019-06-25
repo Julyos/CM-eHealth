@@ -1,0 +1,84 @@
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="card-header">
+            <h3>Editar Paciente</h3>
+        </div>
+        <div class="card-body">
+            <form action="/pacientes/edit-paciente/{{paciente._id}}?_method=PUT" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="form-group">
+                    <input type="text" name="cedula" class="form-control" placeholder="Cedula"
+                    value="{{paciente.cedula}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="nombres" class="form-control" placeholder="Nombres"
+                    value="{{paciente.nombres}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="apellidos" class="form-control" placeholder="Apellidos" 
+                    value="{{paciente.apellidos}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="sexo" class="form-control" placeholder="Sexo" 
+                    value="{{paciente.sexo}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="fecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento" 
+                    value="{{paciente.fecha_nacimiento}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="edad" class="form-control" placeholder="Edad" 
+                    value="{{paciente.edad}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="direccion" class="form-control" placeholder="Dirección" 
+                    value="{{paciente.direccion}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="estado_civil" class="form-control" placeholder="Estado Civil" 
+                    value="{{paciente.estado_civil}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="provincia" class="form-control" placeholder="Provincia" 
+                    value="{{paciente.provincia}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="canton" class="form-control" placeholder="Cantón" 
+                    value="{{paciente.canton}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="parroquia" class="form-control" placeholder="Parroquia" 
+                    value="{{paciente.parroquia}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="nivel_estudio" class="form-control" placeholder="Nivel de Estudio" 
+                    value="{{paciente.nivel_estudio}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="actv_laboral" class="form-control" placeholder="Actividad Laboral" 
+                    value="{{paciente.actv_laboral}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="telefono" class="form-control" placeholder="Teléfono" 
+                    value="{{paciente.telefono}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="movil" class="form-control" placeholder="Móvil" 
+                    value="{{paciente.movil}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="long" class="form-control" placeholder="Longitud" 
+                    value="{{paciente.long}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="lat" class="form-control" placeholder="Latitud" 
+                    value="{{paciente.lat}}">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        Guardar
+                    </button>
+            </form>
+        </div>
+    </div>
+</div>

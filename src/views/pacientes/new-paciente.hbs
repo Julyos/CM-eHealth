@@ -1,0 +1,214 @@
+<script type="text/javascript">
+
+/**
+ * Funcion que devuelve true o false dependiendo de si la fecha es correcta.
+ * Tiene que recibir el dia, mes y año
+ */
+
+function isValidDate(day,month,year){
+
+    var dteDate;
+    month=month-1;
+    dteDate=new Date(year,month,day);
+    return ((day==dteDate.getDate()) && (month==dteDate.getMonth()) && (year==dteDate.getFullYear()));
+}
+
+/**
+ * Funcion para validar una fecha
+ * Tiene que recibir:
+ *  La fecha en formato ingles yyyy-mm-dd
+ * Devuelve:
+ *  true-Fecha correcta
+ *  false-Fecha Incorrecta
+ */
+
+function validate_fecha(fecha){
+
+    var patron=new RegExp("^(19|20)+([0-9]{2})([-])([0-9]{1,2})([-])([0-9]{1,2})$");
+    if(fecha.search(patron)==0){
+
+        var values=fecha.split("-");
+        if(isValidDate(values[2],values[1],values[0])){
+
+            return true;
+        }
+    }
+    return false;
+}
+/**
+ * Esta función calcula la edad de una persona y los meses
+ * La fecha la tiene que tener el formato yyyy-mm-dd que es
+ * metodo que por defecto lo devuelve el <input type="date">
+ */
+function calcularEdad(){
+
+    var fecha=document.getElementById("fecha_nacimiento").value;
+
+    if(validate_fecha(fecha)==true){
+        // Si la fecha es correcta, calculamos la edad
+        var values=fecha.split("-");
+        var dia = values[2];
+        var mes = values[1];
+        var ano = values[0];
+
+        // cogemos los valores actuales
+        var fecha_hoy = new Date();
+        var ahora_ano = fecha_hoy.getYear();
+        var ahora_mes = fecha_hoy.getMonth()+1;
+        var ahora_dia = fecha_hoy.getDate();
+
+        // realizamos el calculo
+        var edad = (ahora_ano + 1900) - ano;
+        if ( ahora_mes < mes ){
+            edad--;
+        }
+
+        if ((mes == ahora_mes) && (ahora_dia < dia)){
+            edad--;
+        }
+
+        if (edad > 1900){
+            edad -= 1900;
+        }
+
+        // calculamos los meses
+        var meses=0;
+        if(ahora_mes>mes)
+
+            meses=ahora_mes-mes;
+
+        if(ahora_mes<mes)
+
+            meses=12-(mes-ahora_mes);
+
+        if(ahora_mes==mes && dia>ahora_dia)
+
+            meses=11;
+
+        // calculamos los dias
+        var dias=0;
+        if(ahora_dia>dia)
+
+            dias=ahora_dia-dia;
+
+        if(ahora_dia<dia){
+
+            ultimoDiaMes=new Date(ahora_ano, ahora_mes, 0);
+            dias=ultimoDiaMes.getDate()-(dia-ahora_dia);
+        }
+        document.getElementById("result").innerHTML=edad;
+
+    }else{
+
+        document.getElementById("result").innerHTML="La fecha "+fecha+" es incorrecta";
+    }
+}
+
+</script>
+<div class="col-md-8 mx-auto">
+    <div class="card">
+    <div class="card-header">
+        <h3>Nuevo Paciente</h3>
+    </div>
+    <div class="card-body">
+        <form action="/pacientes/new-paciente" method="POST">
+        <div class="form-row">
+            <div class="form-label-group col-md-10 mx-auto">
+                <input type="text" name="cedula" class="form-control" placeholder="Cédula" required autofocus>
+                <label for="cedula">Cédula</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="nombres" class="form-control" placeholder="Nombres" required autofocus>
+                <label for="nombres">Nombres</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="apellidos" class="form-control" placeholder="Apellidos" required autofocus>
+                <label for="apellidos">Apellidos</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de Nacimiento" required autofocus>
+                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="edad" class="form-control" placeholder="Edad" autofocus>
+                <label for="edad">Edad</label>
+                <input type="button" value="Calcular edad" onclick="javascript:calcularEdad();" />
+                <div id="result"></div>
+                <div>Total: <input type="text" name="result" id="result" disabled>
+
+            </div>
+
+            <div class="input-group mb-3 col-md-6 mx-auto">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="sexo">Sexo</label>
+                </div>
+                <select class="form-control" name="sexo">
+                    <option selected>Opciones...</option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3 col-md-6 mx-auto">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="estado_civil">Estado civil</label>
+                </div>
+                <select class="form-control" name="estado_civil">
+                    <option selected>Opciones...</option>
+                    <option>Soltero(a)</option>
+                    <option>Casado(a)</option>
+                    <option>Viudo(a)</option>
+                    <option>Divorciado(a)</option>
+                    <option>Unión libre</option>
+                </select>
+            </div>
+
+            <div class="form-label-group col-md-12 mx-auto">
+                <input type="text" name="direccion" class="form-control" placeholder="Dirección" required autofocus>
+                <label for="direccion">Dirección</label>
+            </div>
+            <div class="form-group col-md-4 mx-auto">
+                <input type="text" name="provincia" class="form-control" placeholder="Provincia" 
+                autofocus>
+            </div>
+            <div class="form-group col-md-4 mx-auto">
+                <input type="text" name="canton" class="form-control" placeholder="Cantón" 
+                autofocus>
+            </div>
+            <div class="form-group col-md-4 mx-auto">
+                <input type="text" name="parroquia" class="form-control" placeholder="Parroquia" 
+                autofocus>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="nivel_estudio" class="form-control" placeholder="Nivel de Estudio" autofocus>
+                <label for="nivel_estudio">Nivel de Estudio</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="actv_laboral" class="form-control" placeholder="Actividad Laboral" autofocus>
+                <label for="actv_laboral">Actividad Laboral</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="telefono" class="form-control" placeholder="Teléfono" required autofocus>
+                <label for="telefono">Teléfono</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="movil" class="form-control" placeholder="Móvil" autofocus>
+                <label for="movil">Móvil</label>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="long" class="form-control" placeholder="Longitud" 
+                autofocus>
+            </div>
+            <div class="form-label-group col-md-6 mx-auto">
+                <input type="text" name="lat" class="form-control" placeholder="Latitud" 
+                autofocus>
+            </div>
+            <div class="form-group col-md-6 mx-auto">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

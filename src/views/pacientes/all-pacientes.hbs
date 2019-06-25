@@ -1,0 +1,56 @@
+<div class="row align-items-center">
+    <table class="table table-light table-striped table-hover table-responsive table-sm">
+        <thead class="table thead-dark text-center">
+            <tr>
+            <th colspan="2">Opciones</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Estado Civil</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Provincia</th>
+            <th scope="col">Cantón</th>
+            <th scope="col">Parroquia</th>
+            <th scope="col">Nivel de Estudio</th>
+            <th scope="col">Actividad Laboral</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Móvil</th>
+            <th scope="col">Long</th>
+            <th scope="col">Lat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each pacientes}}
+            <tr>
+            <td><button><a href="/pacientes/edit/{{_id}}"><i class="fas fa-edit"></i></a></button></td>
+            <td>
+                <form action="/pacientes/delete/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE"> 
+                    <!--<button class= "fas fa-trash-alt" type="submit"></button-->
+                    <a><button type="submit"style="color: Tomato;"><i class= "far fa-trash-alt"></i></button></a>  
+                </form>
+                </td>
+            <th scope="row">{{cedula}}</th>
+            <td>{{apellidos}}</td>
+            <td>{{nombres}}</td>
+            <td>{{fecha_nacimiento}}</td>
+            <td>{{edad}}</td>
+            <td>{{sexo}}</td>
+            <td>{{estado_civil}}</td>
+            <td>{{direccion}}</td>
+            <td>{{provincia}}</td>
+            <td>{{canton}}</td>
+            <td>{{parroquia}}</td>
+            <td>{{nivel_estudio}}</td>
+            <td>{{actv_laboral}}</td>
+            <td>{{telefono}}</td>
+            <td>{{movil}}</td>
+            <td>{{long}}</td>
+            <td>{{lat}}</td>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
